@@ -487,29 +487,40 @@ export default function App() {
               @institutoaylltonsantos
             </a>
           </div>
-          <div style={{display:"grid", gridTemplateColumns:"repeat(3, 1fr)", gap:16}}>
-            {["Foto Principal","Robótica","Eventos","Ed. Infantil","Professores","Atividades"].map((label, i) => (
-              <div key={label} data-reveal="up" data-delay={i*80} className="gal-card" style={{
-                background: i===0 ? "#0b2545" : "#ffffff",
-                borderRadius:16,
-                border: "1px solid " + (i===0 ? "#1e4d8c" : "#e2e8f0"),
-                display:"flex",
-                alignItems:"center",
-                justifyContent:"center",
-                height:180,
+          <div style={{display:"grid", gridTemplateColumns:"repeat(4, 1fr)", gap:12}}>
+            {[
+              {src:"/fotos/foto1.jpg",  label:"Jogos Internos"},
+              {src:"/fotos/foto2.jpg",  label:"Amizade"},
+              {src:"/fotos/foto3.jpg",  label:"Educação Infantil"},
+              {src:"/fotos/foto4.jpg",  label:"Aprendizado"},
+              {src:"/fotos/foto5.jpg",  label:"Brincadeiras"},
+              {src:"/fotos/foto6.jpg",  label:"Sala de Aula"},
+              {src:"/fotos/foto7.jpg",  label:"Recreação"},
+              {src:"/fotos/foto8.jpg",  label:"Atividades"},
+              {src:"/fotos/foto9.jpg",  label:"Eventos"},
+              {src:"/fotos/foto10.jpg", label:"Esportes"},
+              {src:"/fotos/foto11.jpg", label:"Arte"},
+              {src:"/fotos/foto12.jpg", label:"Turma"},
+            ].map(({src, label}, i) => (
+              <div key={i} data-reveal="up" data-delay={i*50} className="gal-card" style={{
+                borderRadius:12,
                 overflow:"hidden",
-                boxShadow:"0 2px 12px rgba(11,37,69,0.06)",
-                animationDelay: i*0.1+"s",
+                height:200,
+                position:"relative",
+                boxShadow:"0 4px 16px rgba(11,37,69,0.1)",
                 cursor:"pointer"
               }}>
-                <div style={{textAlign:"center",padding:16}}>
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" style={{width:28,height:28,margin:"0 auto 6px",opacity:0.25,display:"block",color: i===0 ? "#fff" : "#0b2545"}}><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-                  <p style={{fontSize:11,opacity:0.4,color: i===0 ? "#fff" : "#475569",margin:0,fontWeight:500}}>{label}</p>
+                <img src={src} alt={label}
+                  style={{width:"100%",height:"100%",objectFit:"cover",display:"block",transition:"transform 0.4s"}}
+                  onMouseEnter={e=>e.target.style.transform="scale(1.07)"}
+                  onMouseLeave={e=>e.target.style.transform="scale(1)"}
+                />
+                <div style={{position:"absolute",bottom:0,left:0,right:0,background:"linear-gradient(to top,rgba(11,37,69,0.75),transparent)",padding:"1rem 0.8rem 0.5rem"}}>
+                  <p style={{color:"#fff",fontSize:11,fontWeight:600,margin:0}}>{label}</p>
                 </div>
               </div>
             ))}
           </div>
-          <p style={{fontSize:11,color:"#94a3b8",textAlign:"center",marginTop:12}}>Substitua os espaços acima com fotos reais da escola</p>
         </div>
       </section>
 
