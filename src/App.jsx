@@ -194,6 +194,7 @@ Para valores e agendamento de visita, sempre oriente o responsável a entrar em 
 export default function App() {
   const [scrolled, setScrolled] = useState(false);
   const [chatOpen, setChatOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [form, setForm] = useState({ nome: "", telefone: "", turma: "Educação Infantil", mensagem: "" });
   const [sent, setSent] = useState(false);
 
