@@ -302,7 +302,7 @@ export default function App() {
 
       {/* HERO */}
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden" style={{
-        backgroundImage: "url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1600&q=80')",
+        backgroundImage: "url('/fotos/FOTO5.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}>
@@ -489,18 +489,18 @@ export default function App() {
           </div>
           <div style={{display:"grid", gridTemplateColumns:"repeat(4, 1fr)", gap:12}}>
             {[
-              {src:"/fotos/foto1.jpg",  label:"Jogos Internos"},
-              {src:"/fotos/foto2.jpg",  label:"Amizade"},
-              {src:"/fotos/foto3.jpg",  label:"Educação Infantil"},
-              {src:"/fotos/foto4.jpg",  label:"Aprendizado"},
-              {src:"/fotos/foto5.jpg",  label:"Brincadeiras"},
-              {src:"/fotos/foto6.jpg",  label:"Sala de Aula"},
-              {src:"/fotos/foto7.jpg",  label:"Recreação"},
-              {src:"/fotos/foto8.jpg",  label:"Atividades"},
-              {src:"/fotos/foto9.jpg",  label:"Eventos"},
-              {src:"/fotos/foto10.jpg", label:"Esportes"},
-              {src:"/fotos/foto11.jpg", label:"Arte"},
-              {src:"/fotos/foto12.jpg", label:"Turma"},
+              {src:"/fotos/FOTO1.jpg",  label:"Jogos Internos"},
+              {src:"/fotos/FOTO2.jpg",  label:"Amizade"},
+              {src:"/fotos/FOTO3.jpg",  label:"Educação Infantil"},
+              {src:"/fotos/FOTO4.jpg",  label:"Aprendizado"},
+              {src:"/fotos/FOTO5.jpg",  label:"Brincadeiras"},
+              {src:"/fotos/FOTO6.jpg",  label:"Sala de Aula"},
+              {src:"/fotos/FOTO7.jpg",  label:"Recreação"},
+              {src:"/fotos/FOTO8.jpg",  label:"Atividades"},
+              {src:"/fotos/FOTO9.jpg",  label:"Eventos"},
+              {src:"/fotos/FOTO10.jpg", label:"Esportes"},
+              {src:"/fotos/FOTO11.jpg", label:"Arte"},
+              {src:"/fotos/FOTO12.jpg", label:"Turma"},
             ].map(({src, label}, i) => (
               <div key={i} data-reveal="up" data-delay={i*50} className="gal-card" style={{
                 borderRadius:12,
