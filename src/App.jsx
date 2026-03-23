@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-// Hook de scroll reveal — observa elementos com data-reveal e anima na entrada
+// Hook de scroll reveal
 function useScrollReveal() {
   useEffect(() => {
     const els = document.querySelectorAll("[data-reveal]");
@@ -23,6 +23,38 @@ function useScrollReveal() {
     els.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
+}
+
+// Base de respostas fixas do chatbot
+function getBotReply(text) {
+  const t = text.toLowerCase().trim();
+  if (t.match(/end|fica|localiz|onde|bairro|rua|av/))
+    return "Estamos na Av. Beberibe, 4628 — bairro Beberibe, Recife/PE. 📍 CEP: 52130-325.";
+  if (t.match(/hor|funciona|abre|fecha|turno/))
+    return "Funcionamos de segunda a sábado, das 7h30 às 17h30. Domingos fechado. 🕐";
+  if (t.match(/matr|vaga|inscri|enroll/))
+    return "As matrículas para 2026 estão abertas! 🎉 Entre em contato pelo (81) 3449-0496 ou clique em 'Garantir Vaga' no site.";
+  if (t.match(/valor|preco|preço|mensalid|quanto|custa/))
+    return "Para valores e condições, fale diretamente com nossa secretaria pelo (81) 3449-0496 ou WhatsApp. 📞";
+  if (t.match(/série|ano|turma|fundamental|infantil|berçário|bercario/))
+    return "Atendemos do Berçário ao 9º Ano do Ensino Fundamental. Temos turmas para todas as fases! 🎓";
+  if (t.match(/bilíngue|bilingue|inglês|ingles/))
+    return "Sim! Oferecemos ensino bilíngue (português + inglês) em todas as turmas. 🌎";
+  if (t.match(/robótica|robotica|tecnologia/))
+    return "Temos aulas de robótica que desenvolvem raciocínio lógico e criatividade desde cedo. 🤖";
+  if (t.match(/música|musica|musicaliz/))
+    return "Oferecemos musicalização como parte do currículo, estimulando a expressão e o desenvolvimento cognitivo. 🎵";
+  if (t.match(/empreend/))
+    return "Trabalhamos educação financeira e empreendedorismo para formar líderes desde cedo. 💡";
+  if (t.match(/phone|telefone|contato|falar|ligar|whatsapp|zap/))
+    return "Pode falar com a gente pelo (81) 3449-0496 ou pelo WhatsApp no mesmo número. 📱";
+  if (t.match(/instagram|insta|rede social/))
+    return "Nos siga no Instagram: @institutoaylltonsantos 📸";
+  if (t.match(/oi|olá|ola|bom dia|boa tarde|boa noite|hey|hello/))
+    return "Olá! Fico feliz em ajudar 😊 Pode perguntar sobre matrículas, endereço, turmas ou nossos diferenciais!";
+  if (t.match(/obrigad|thanks|valeu/))
+    return "Por nada! Se precisar de mais informações, estamos aqui. 😊";
+  return "Não entendi muito bem, mas posso ajudar com informações sobre matrículas, endereço, turmas e diferenciais. Ou fale diretamente pelo (81) 3449-0496! 📞";
 }
 
 // SVG helpers - tamanho fixo, sem className herdado
@@ -64,49 +96,17 @@ function Chatbot({ isOpen, setIsOpen }) {
 
   useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages, isOpen]);
 
-  const send = async (text) => {
+  const send = (text) => {
     if (!text.trim() || loading) return;
     const userMsg = text.trim();
     setInput("");
     setMessages(prev => [...prev, { type: "user", text: userMsg }]);
     setLoading(true);
-
-    try {
-      const history = messages.map(m => ({
-        role: m.type === "user" ? "user" : "assistant",
-        content: m.text
-      }));
-
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 400,
-          system: `Você é o assistente virtual do Instituto Ayllton Santos, uma escola particular em Recife-PE.
-Responda sempre em português brasileiro, de forma amigável, concisa (máximo 3 frases) e útil.
-Informações da escola:
-- Nome: Instituto Ayllton Santos (IAS)
-- Endereço: Av. Beberibe, 4628 – Beberibe, Recife – PE, CEP 52130-325
-- Telefone: (81) 3449-0496
-- Instagram: @institutoaylltonsantos
-- Séries: Educação Infantil ao 9º Ano do Ensino Fundamental
-- Diferenciais: Ensino Bilíngue, Robótica, Musicalização, Empreendedorismo, Educação Socioemocional
-- Horário: Segunda a Sábado, 7h30 às 17h30
-- Matrículas 2026 estão abertas
-Para valores e agendamento de visita, sempre oriente o responsável a entrar em contato pelo WhatsApp (81) 3449-0496.`,
-          messages: [...history, { role: "user", content: userMsg }]
-        })
-      });
-
-      const data = await res.json();
-      const reply = data.content?.map(b => b.text || "").join("") || "Desculpe, não consegui processar. Ligue: (81) 3449-0496";
+    setTimeout(() => {
+      const reply = getBotReply(userMsg);
       setMessages(prev => [...prev, { type: "bot", text: reply }]);
-    } catch {
-      setMessages(prev => [...prev, { type: "bot", text: "Ocorreu um erro. Por favor, entre em contato: (81) 3449-0496 📞" }]);
-    } finally {
       setLoading(false);
-    }
+    }, 600);
   };
 
   const quickReplies = ["Onde fica a escola?", "Quais séries têm?", "Matrículas 2026", "Horário de funcionamento"];
