@@ -332,11 +332,24 @@ export default function App() {
           </div>
 
           <div className="md:w-1/2" style={{display:"flex",flexDirection:"column",gap:16}}>
-            <div style={{borderRadius:20,overflow:"hidden",boxShadow:"0 24px 60px rgba(0,0,0,0.3)",border:"4px solid rgba(255,255,255,0.2)",background:"linear-gradient(135deg,#0b2545,#1e4d8c)",aspectRatio:"16/9",display:"flex",alignItems:"center",justifyContent:"center",position:"relative"}}>
-              <div style={{textAlign:"center",color:"rgba(255,255,255,0.3)"}}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" style={{width:56,height:56,margin:"0 auto 12px",opacity:0.25,display:"block"}}><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-                <p style={{fontSize:"0.8rem",opacity:0.5}}>Adicione uma foto da escola aqui</p>
-              </div>
+            <div style={{borderRadius:20,overflow:"hidden",boxShadow:"0 24px 60px rgba(0,0,0,0.3)",border:"4px solid rgba(255,255,255,0.2)",aspectRatio:"16/9",position:"relative"}}>
+              <img
+                src="/fotos/FOTO1.jpg"
+                alt="Foto da escola"
+                style={{
+                  width:"100%",
+                  height:"100%",
+                  objectFit:"cover",
+                  display:"block"
+                }}
+              />
+              <div
+                style={{
+                  position:"absolute",
+                  inset:0,
+                  background:"linear-gradient(to top, rgba(11,37,69,0.20), rgba(11,37,69,0.05))"
+                }}
+              />
             </div>
             <div style={{marginTop:16,background:"rgba(255,255,255,0.12)",backdropFilter:"blur(8px)",border:"1px solid rgba(255,255,255,0.2)",padding:"0.75rem 1.2rem",borderRadius:14,display:"inline-flex",alignItems:"center",gap:12}}>
               <div style={{background:"#f97316",padding:8,borderRadius:"50%",color:"#fff",display:"flex"}}>{Ico.GraduationCap}</div>
