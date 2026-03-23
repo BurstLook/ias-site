@@ -227,24 +227,77 @@ export default function App() {
     <div className="min-h-screen bg-slate-50 text-slate-800" style={{ fontFamily: "'Segoe UI', system-ui, sans-serif" }}>
 
       {/* NAV */}
-      <header style={{position:"fixed",top:0,left:0,right:0,zIndex:50,transition:"all 0.3s",background: scrolled ? "#ffffff" : "rgba(0,0,0,0.25)",backdropFilter:"blur(8px)",padding: scrolled ? "0.75rem 0" : "1.25rem 0",boxShadow: scrolled ? "0 2px 16px rgba(0,0,0,0.08)" : "none"}}>
-        <div className="max-w-6xl mx-auto px-4 md:px-8 flex justify-between items-center">
-          <a onClick={(e)=>{e.preventDefault();window.scrollTo({top:0,behavior:"smooth"})}} href="#" style={{display:"flex",alignItems:"center",gap:8,textDecoration:"none",cursor:"pointer"}}>
-            <span style={{color: scrolled ? "#0b2545" : "#ffffff"}}>{Ico.Shield}</span>
+      <header style={{position:"fixed",top:0,left:0,right:0,zIndex:50,transition:"all 0.3s",background: scrolled||menuOpen ? "#ffffff" : "rgba(0,0,0,0.25)",backdropFilter:"blur(8px)",boxShadow: scrolled ? "0 2px 16px rgba(0,0,0,0.08)" : "none"}}>
+        {/* Barra principal */}
+        <div style={{maxWidth:1152,margin:"0 auto",padding: scrolled ? "0.75rem 1.5rem" : "1.25rem 1.5rem",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+
+          {/* Logo */}
+          <a onClick={(e)=>{e.preventDefault();window.scrollTo({top:0,behavior:"smooth"});setMenuOpen(false)}} href="#"
+            style={{display:"flex",alignItems:"center",gap:8,textDecoration:"none",cursor:"pointer"}}>
+            <span style={{color: scrolled||menuOpen ? "#0b2545" : "#ffffff"}}>{Ico.Shield}</span>
             <div>
-              <div style={{fontSize:"1.1rem",fontWeight:800,lineHeight:1,letterSpacing:"-0.02em",color: scrolled ? "#0b2545" : "#ffffff"}}>INSTITUTO</div>
-              <div className="text-orange-500 font-extrabold tracking-widest text-xs leading-none">AYLLTON SANTOS</div>
+              <div style={{fontSize:"1.1rem",fontWeight:800,lineHeight:1,color: scrolled||menuOpen ? "#0b2545" : "#ffffff"}}>INSTITUTO</div>
+              <div style={{color:"#f97316",fontWeight:800,letterSpacing:"0.1em",fontSize:"0.7rem"}}>AYLLTON SANTOS</div>
             </div>
           </a>
-          <nav style={{display:"flex",gap:"1.5rem",alignItems:"center"}}>
+
+          {/* Nav desktop — só aparece em telas >= 768px */}
+          <nav style={{display:"flex",gap:"1.5rem",alignItems:"center",flexWrap:"nowrap"}}
+            className="nav-desktop">
             {[["sobre","A Escola"],["segmentos","Segmentos"],["diferenciais","Diferenciais"],["galeria","Nossa Escola"],["matriculas","Matrículas"]].map(([id,l]) => (
-              <a key={id} href={"#"+id} onClick={(e)=>{e.preventDefault();document.getElementById(id)?.scrollIntoView({behavior:"smooth"})}} style={{color: scrolled ? "#1e293b" : "#ffffff", textDecoration:"none", fontWeight:500, fontSize:"0.875rem", transition:"color 0.2s", cursor:"pointer"}}>{l}</a>
+              <a key={id} href={"#"+id}
+                onClick={(e)=>{e.preventDefault();document.getElementById(id)?.scrollIntoView({behavior:"smooth"})}}
+                style={{color: scrolled ? "#1e293b" : "#ffffff",textDecoration:"none",fontWeight:500,fontSize:"0.875rem",whiteSpace:"nowrap",cursor:"pointer"}}>
+                {l}
+              </a>
             ))}
           </nav>
-          <button onClick={()=>document.getElementById("matriculas")?.scrollIntoView({behavior:"smooth"})} style={{display:"flex",alignItems:"center",gap:8,background:"#f97316",color:"#fff",padding:"0.55rem 1.4rem",borderRadius:50,fontWeight:700,fontSize:"0.85rem",border:"none",cursor:"pointer",boxShadow:"0 4px 16px rgba(249,115,22,0.35)"}}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{display:"block",flexShrink:0}}><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17z"/></svg> Fale Conosco
+
+          {/* Fale Conosco desktop */}
+          <button onClick={()=>document.getElementById("matriculas")?.scrollIntoView({behavior:"smooth"})}
+            className="btn-desktop"
+            style={{background:"#f97316",color:"#fff",padding:"0.55rem 1.4rem",borderRadius:50,fontWeight:700,fontSize:"0.85rem",border:"none",cursor:"pointer",whiteSpace:"nowrap"}}>
+            Fale Conosco
+          </button>
+
+          {/* Hamburguer mobile */}
+          <button onClick={()=>setMenuOpen(o=>!o)}
+            className="btn-hamburger"
+            style={{background:"none",border:"none",cursor:"pointer",padding:8,display:"flex",flexDirection:"column",gap:5,marginLeft:8}}>
+            <span style={{display:"block",width:24,height:2.5,background: scrolled||menuOpen ? "#0b2545" : "#fff",borderRadius:2,transition:"all 0.3s",transform: menuOpen ? "rotate(45deg) translate(5px,5px)" : "none"}}/>
+            <span style={{display:"block",width:24,height:2.5,background: scrolled||menuOpen ? "#0b2545" : "#fff",borderRadius:2,transition:"all 0.3s",opacity: menuOpen ? 0 : 1}}/>
+            <span style={{display:"block",width:24,height:2.5,background: scrolled||menuOpen ? "#0b2545" : "#fff",borderRadius:2,transition:"all 0.3s",transform: menuOpen ? "rotate(-45deg) translate(5px,-5px)" : "none"}}/>
           </button>
         </div>
+
+        {/* Menu mobile dropdown */}
+        {menuOpen && (
+          <div style={{background:"#ffffff",borderTop:"1px solid #f1f5f9",padding:"0.5rem 1.5rem 1.5rem"}}>
+            {[["sobre","A Escola"],["segmentos","Segmentos"],["diferenciais","Diferenciais"],["galeria","Nossa Escola"],["matriculas","Matrículas"]].map(([id,l]) => (
+              <a key={id} href={"#"+id}
+                onClick={(e)=>{e.preventDefault();document.getElementById(id)?.scrollIntoView({behavior:"smooth"});setMenuOpen(false)}}
+                style={{display:"block",color:"#1e293b",textDecoration:"none",fontWeight:500,fontSize:"1rem",padding:"0.85rem 0",borderBottom:"1px solid #f8fafc",cursor:"pointer"}}>
+                {l}
+              </a>
+            ))}
+            <button onClick={()=>{document.getElementById("matriculas")?.scrollIntoView({behavior:"smooth"});setMenuOpen(false)}}
+              style={{marginTop:12,width:"100%",background:"#f97316",color:"#fff",padding:"0.9rem",borderRadius:50,fontWeight:700,fontSize:"0.95rem",border:"none",cursor:"pointer"}}>
+              Fale Conosco
+            </button>
+          </div>
+        )}
+
+        {/* CSS responsivo inline */}
+        <style>{`
+          .nav-desktop { display: none !important; }
+          .btn-desktop { display: none !important; }
+          .btn-hamburger { display: flex !important; }
+          @media (min-width: 768px) {
+            .nav-desktop { display: flex !important; }
+            .btn-desktop { display: flex !important; }
+            .btn-hamburger { display: none !important; }
+          }
+        `}</style>
       </header>
 
       {/* HERO */}
